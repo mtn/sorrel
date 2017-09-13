@@ -29,17 +29,15 @@ end
 
 def read_list(reader)
     ast = []
-    p reader
     token = reader.next
     if token != '('
         raise "expected ')'"
     end
-    while reader.peek != ')'
+    while (token = reader.peek) != ')'
         if not token
             raise "expected ')', got EOF"
         end
-        a = read_form(reader)
-        ast.push(a)
+        ast.push(read_form(reader))
     end
     reader.next # consume trailing ')'
 
@@ -60,5 +58,5 @@ def read_form(reader)
 end
 
 
-p tokenize('(-a ( 1 ) 2)')
 p read_str('(-a ( 1 ) 2)')
+p read_str('(-a ( 1 ) 2')
