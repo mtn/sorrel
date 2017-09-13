@@ -1,7 +1,10 @@
 require 'readline'
+require_relative 'reader'
+require_relative 'show'
 
 def evaluate(arg)
-    arg
+    # tokenize(arg)
+    read_str(arg)
 end
 
 while buf = Readline.readline('>> ', true)

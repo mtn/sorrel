@@ -1,0 +1,4 @@
+
+def show(inp)
+
+end

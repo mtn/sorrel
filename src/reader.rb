@@ -45,18 +45,27 @@ def read_list(reader)
 end
 
 def read_atom(reader)
-    reader.next
+    case (token = reader.next)
+    when /^-?[0-9]+$/ then
+        token.to_i
+    when 'nil' then
+        nil
+    when 'true' then
+        true
+    when 'false' then
+        false
+    else
+        token
+    end
 end
 
 def read_form(reader)
-    return case reader.peek
-    when '('
-        then read_list(reader)
+    case reader.peek
+    when '(' then
+        read_list(reader)
     else
         read_atom(reader)
     end
 end
 
 
-p read_str('(-a ( 1 ) 2)')
-p read_str('(-a ( 1 ) 2')
