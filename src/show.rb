@@ -29,3 +29,7 @@ def show(inp)
     end
 end
 
+def PRINT(showable)
+    puts show(showable)
+end
+

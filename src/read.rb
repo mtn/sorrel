@@ -55,7 +55,7 @@ def read_atom(reader)
     when 'false' then
         false
     else
-        token
+        token.to_sym
     end
 end
 
@@ -67,4 +67,9 @@ def read_form(reader)
         read_atom(reader)
     end
 end
+
+def READ(inp)
+    read_str(inp)
+end
+
 
