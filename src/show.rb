@@ -4,9 +4,9 @@ def space_delimit(arr)
     num_terms = arr.length
     arr.each_with_index { |x,ind|
         if ind != num_terms - 1
-            spaced += x.to_s + ' '
+            spaced += show(x) + ' '
         else
-            spaced += x.to_s
+            spaced += show(x)
         end
     }
     spaced
@@ -24,6 +24,8 @@ def show(inp)
         then 'nil'
     when Array
         then '(' + space_delimit(inp) + ')'
+    else
+        inp.to_s
     end
 end
 
