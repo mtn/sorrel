@@ -31,7 +31,7 @@ def read_list(reader)
     ast = []
     token = reader.next
     if token != '('
-        raise "expected ')'"
+        raise "expected '('"
     end
     while (token = reader.peek) != ')'
         if not token
@@ -67,5 +67,4 @@ def read_form(reader)
         read_atom(reader)
     end
 end
-
 
