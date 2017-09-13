@@ -1,5 +1,5 @@
 require 'readline'
-require_relative 'reader'
+require_relative 'read'
 require_relative 'show'
 
 
@@ -20,6 +20,10 @@ def rep(arg)
 end
 
 while buf = Readline.readline('>> ', true)
+    begin
     rep(buf)
+    rescue => e
+        p 'Error: ' + e.message
+    end
 end
 
