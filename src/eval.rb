@@ -7,12 +7,15 @@ $repl_env = {'+': lambda { |a,b| a+b      },
 
 
 def eval_ast(ast,env)
-    case ast[0]
+    case ast
     when Symbol then
-        env[ast[0]].call(ast[1],ast[2])
+        unless env[ast]
+            throw "Symbol not found"
+        end
+        env[ast]
     when Array then
         ast.map { |x|
-            eval_ast(x,env)
+            EVAL(x,env)
         }
     else
         ast
@@ -20,5 +23,11 @@ def eval_ast(ast,env)
 end
 
 def EVAL(ast,env)
-    eval_ast(ast,env)
+    case ast
+    when Array then
+        ast = eval_ast(ast,env)
+        ast[0].call(*ast.drop(1))
+    else
+        eval_ast(ast,env)
+    end
 end
