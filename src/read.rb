@@ -27,15 +27,15 @@ def read_str(inp)
     read_form Reader.new tokenize(inp)
 end
 
-def read_list(reader)
+def read_list(reader,open='(',close=')')
     ast = []
     token = reader.next
-    if token != '('
-        raise "expected '('"
+    if token != open
+        raise "expected '#{open}'"
     end
-    while (token = reader.peek) != ')'
+    while (token = reader.peek) != close
         if not token
-            raise "expected ')', got EOF"
+            raise "expected '#{close}', got EOF"
         end
         ast.push(read_form(reader))
     end
@@ -63,6 +63,8 @@ def read_form(reader)
     case reader.peek
     when '(' then
         read_list(reader)
+    when '[' then
+        read_list(reader,'[',']')
     else
         read_atom(reader)
     end

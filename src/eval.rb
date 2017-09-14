@@ -31,6 +31,20 @@ def EVAL(ast,env)
                 inner.set(k,EVAL(v,inner))
             end
             eval_ast(ast[2],inner)
+        when :do then
+            eval_ast(ast.drop(1),env).last
+        when :if then
+            if EVAL(ast[1],env)
+                EVAL(ast[2],env)
+            elsif ast[3]
+                EVAL(ast[3],env)
+            else
+                return nil
+            end
+        when :'fn*' then
+            lambda { |*x|
+                EVAL(ast[2],Env.new(env,ast[1],x))
+            }
         else
             ast = eval_ast(ast,env)
             ast[0].call(*ast.drop(1))

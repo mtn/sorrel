@@ -9,9 +9,12 @@ class Env
 
     attr_accessor :data
 
-    def initialize(outer=nil)
+    def initialize(outer=nil,binds=[],exprs=[])
         @data = {}
         @outer = outer
+        binds.each_with_index { |b,i|
+            @data[b] = exprs[i]
+        }
     end
 
     def set(key,val)
@@ -39,7 +42,7 @@ class Env
 end
 
 def create_repl_env
-    repl_env = Env.new(nil)
+    repl_env = Env.new
     $repl_symbols.each { |key,val|
         repl_env.set(key,val)
     }
