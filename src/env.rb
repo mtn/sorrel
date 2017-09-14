@@ -21,7 +21,7 @@ class Env
     def find(key)
         if @data.has_key?(key)
             self
-        elsif outer
+        elsif @outer
             @outer.find(key)
         else
             return nil
@@ -30,7 +30,7 @@ class Env
 
     def get(key)
         if (env = find(key))
-            @data[key]
+            env.data[key]
         else
             throw "Symbol not found"
         end

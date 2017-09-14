@@ -9,8 +9,8 @@ def rep(arg,env)
     PRINT(EVAL(READ(arg),env))
 end
 
+repl_env = create_repl_env
 while buf = Readline.readline('>> ', true)
-    repl_env = create_repl_env
     begin
     rep(buf,repl_env)
     rescue => e
