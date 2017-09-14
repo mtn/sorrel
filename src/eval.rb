@@ -1,18 +1,11 @@
 
-$repl_env = {'+': lambda { |a,b| a+b      },
-             '-': lambda { |a,b| a-b      },
-             '*': lambda { |a,b| a*b      },
-             '/': lambda { |a,b| int(a/b) }
-}
-
-
 def eval_ast(ast,env)
     case ast
     when Symbol then
-        unless env[ast]
+        unless env.get(ast)
             throw "Symbol not found"
         end
-        env[ast]
+        env.get(ast)
     when Array then
         ast.map { |x|
             EVAL(x,env)
