@@ -1,9 +1,4 @@
-
-$repl_symbols = {'+': lambda { |a,b| a+b      },
-                 '-': lambda { |a,b| a-b      },
-                 '*': lambda { |a,b| a*b      },
-                 '/': lambda { |a,b| int(a/b) }
-}
+require_relative 'core'
 
 class Env
 
@@ -43,7 +38,7 @@ end
 
 def create_repl_env
     repl_env = Env.new
-    $repl_symbols.each { |key,val|
+    $ns.each { |key,val|
         repl_env.set(key,val)
     }
     repl_env

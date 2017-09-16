@@ -3,6 +3,7 @@ require_relative 'read'
 require_relative 'show'
 require_relative 'eval'
 require_relative 'env'
+require_relative 'core'
 
 
 def rep(arg,env)
