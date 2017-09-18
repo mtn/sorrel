@@ -1,3 +1,4 @@
+
 class Reader
 
     def initialize(tokens)
@@ -19,8 +20,8 @@ end
 def tokenize(str)
     str.scan(/[\s,]*(~@|[\[\]{}()'`~^@]|"(?:\\.|[^\\"])*"|;.*|[^\s\[\]{}('"`,;)]*)/)
         .map{|m| m[0]}.select{ |t|
-            t != "" && t[0..0] != ";"
-        }
+        t != "" && t[0..0] != ";"
+    }
 end
 
 def read_str(inp)

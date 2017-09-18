@@ -13,9 +13,9 @@ end
 repl_env = create_repl_env
 while buf = Readline.readline('>> ', true)
     begin
-    rep(buf,repl_env)
+        rep(buf,repl_env)
     rescue => e
-        p 'Error: ' + e.message
+        puts 'Error: ' + e.message
     end
 end
 
