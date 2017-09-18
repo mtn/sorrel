@@ -1,5 +1,22 @@
 require_relative 'types'
 
+def is_pair(arg)
+    (arg.is_a? Array) && arg.empty?
+end
+
+def quasiquote(ast)
+    if not is_pair(ast)
+        [:quote,ast]
+    elsif ast[0] == :unquote
+        ast[1]
+    elsif is_pair(ast) and ast[0][0] == :'splice-unquote'
+        [:concat,ast[0][1],quasiquote(ast.drop(1))]
+    else
+        puts 'in here'
+        [:cons,quasiquote(ast[0]),quasiquote(ast.drop(1))]
+    end
+end
+
 def eval_ast(ast,env)
     case ast
     when Symbol then
@@ -48,6 +65,10 @@ def EVAL(ast,env)
             return Function.new(ast[2],ast[1],env,lambda { |*x|
                 EVAL(ast[2],Env.new(env,ast[1],x))
             })
+        when :quote then
+            return ast[1]
+        when :quasiquote then
+            ast = quasiquote(ast[1])
         else
             el = eval_ast(ast,env)
             f = el[0]

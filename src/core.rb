@@ -16,7 +16,7 @@ $ns = {
     'empty?': lambda { |x| x.empty? },
     'count':  lambda { |x| x.count },
     'cons':   lambda { |x,xs| xs.clone.insert(0,x) },
-    'concat': lambda { |*xs| xs.reduce(:concat) || [] },
+    'concat': lambda { |*xs| xs && xs.reduce(:+) || [] },
 
     'prn':         lambda { |*x| puts x.map {|e| show(e)}.join(' ') },
     'str':         lambda { |*x| x.map {|y| show(y,false)}.join("")},
