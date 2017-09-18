@@ -35,11 +35,27 @@ class Env
 
 end
 
-def create_repl_env
+#TODO Add command line option for running without core
+def create_repl_env(withCore=true)
     repl_env = Env.new
+
     $ns.each { |key,val|
         repl_env.set(key,val)
     }
+
+    repl_env.set(:eval, lambda { |x| EVAL(x,repl_env) })
+
+    if withCore
+        File.readlines("#{File.expand_path(File.dirname(__FILE__))}/lib/core.mal").each { |line|
+            if not line.chomp == ""
+                EVAL(READ(line.chomp),repl_env)
+            end
+        }
+    end
+
+
+
+
     repl_env
 end
 

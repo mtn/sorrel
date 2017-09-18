@@ -12,7 +12,7 @@ def space_delimit(arr)
     spaced
 end
 
-def show(inp)
+def show(inp,readable=true)
     case inp
     when Integer
         then inp.to_s
@@ -24,6 +24,12 @@ def show(inp)
         then 'nil'
     when Array
         then '(' + space_delimit(inp) + ')'
+    when String
+        if readable
+            return inp.inspect
+        else
+            return inp
+        end
     when Function
         then '#<function>'
     else
@@ -32,6 +38,6 @@ def show(inp)
 end
 
 def PRINT(showable)
-    puts show(showable)
+    puts show(showable,true)
 end
 
