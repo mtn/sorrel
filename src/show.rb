@@ -30,6 +30,8 @@ def show(inp,readable=true)
         else
             return inp
         end
+    when Atom
+        then "(atom " + show(inp.val, true) + ")"
     when Function
         then '#<function>'
     else

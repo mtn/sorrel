@@ -17,8 +17,14 @@ $ns = {
     'count':  lambda { |x| x.count },
 
     'prn':         lambda { |*x| puts x.map {|e| show(e)}.join(' ') },
+    'str':         lambda { |*x| x.map {|y| show(y,false)}.join("")},
     'slurp':       lambda { |x| File.read(x.to_s) },
     'read-string': lambda { |x| read_str x.to_s },
-    'str':         lambda { |*x| x.map {|y| show(y, false)}.join("")},
+
+    'atom':   lambda { |x| Atom.new(x) },
+    'atom?':  lambda { |x| x.is_a? Atom },
+    'swap!':  lambda { |*x| x[0].val = x[1].fn.call(*[x[0].val].concat(x.drop(2))) },
+    'deref':  lambda { |x| x.val },
+    'reset!': lambda { |x,v| x.val=v },
 }
 
