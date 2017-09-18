@@ -19,5 +19,6 @@ $ns = {
     'prn':         lambda { |*x| puts x.map {|e| show(e)}.join(' ') },
     'slurp':       lambda { |x| File.read(x.to_s) },
     'read-string': lambda { |x| read_str x.to_s },
+    'str':         lambda { |*x| x.map {|y| show(y, false)}.join("")},
 }
 
