@@ -24,7 +24,7 @@ def show(inp)
         then 'nil'
     when Array
         then '(' + space_delimit(inp) + ')'
-    when Proc
+    when Function
         then '#<function>'
     else
         inp.to_s

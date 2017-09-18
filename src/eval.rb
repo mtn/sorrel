@@ -16,7 +16,6 @@ end
 
 def EVAL(ast,env)
     while true
-
         if not ast.is_a? Array
             return eval_ast(ast,env)
         end
@@ -46,7 +45,7 @@ def EVAL(ast,env)
                 return nil
             end
         when :'fn*' then
-            Function.new(ast[2],env,ast[1],lambda { |*x|
+            return Function.new(ast[2],ast[1],env,lambda { |*x|
                 EVAL(ast[2],Env.new(env,ast[1],x))
             })
         else
@@ -54,9 +53,9 @@ def EVAL(ast,env)
             f = el[0]
             if f.class == Function
                 ast = f.ast
-                env = f.gen_env(el.drop(1)) # Continue loop (TCO)
+                env = f.gen_env(el.drop(1))
             else
-                return f[*el.drop(1)]
+                return f.call(*el.drop(1))
             end
         end
 

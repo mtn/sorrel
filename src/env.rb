@@ -1,13 +1,12 @@
 require_relative 'core'
 
 class Env
-
     attr_accessor :data
 
-    def initialize(outer=nil,binds=[],exprs=[])
+    def initialize(outer=nil,terms=[],exprs=[])
         @data = {}
         @outer = outer
-        binds.each_with_index { |b,i|
+        terms.each_with_index { |b,i|
             @data[b] = exprs[i]
         }
     end
@@ -22,7 +21,7 @@ class Env
         elsif @outer
             @outer.find(key)
         else
-            return nil
+            nil
         end
     end
 
@@ -43,3 +42,4 @@ def create_repl_env
     }
     repl_env
 end
+
