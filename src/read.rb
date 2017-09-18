@@ -45,6 +45,10 @@ def read_list(reader,open='(',close=')')
     ast
 end
 
+def parse_str(token)
+    token[1..-2].gsub(/\\"/, '"').gsub(/\\n/, "\n").gsub(/\\\\/, "\\")
+end
+
 def read_atom(reader)
     case (token = reader.next)
     when /^-?[0-9]+$/ then
@@ -55,6 +59,8 @@ def read_atom(reader)
         true
     when 'false' then
         false
+    when /^".*"$/ then
+        parse_str(token)
     else
         token.to_sym
     end
