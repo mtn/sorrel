@@ -29,7 +29,7 @@ class Env
         if (env = find(key))
             env.data[key]
         else
-            throw "Symbol not found"
+            raise "Symbol not found"
         end
     end
 

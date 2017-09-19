@@ -17,6 +17,9 @@ $ns = {
     'count':  lambda { |x| x.count },
     'cons':   lambda { |x,xs| xs.clone.insert(0,x) },
     'concat': lambda { |*xs| xs && xs.reduce(:+) || [] },
+    'nth':    lambda { |xs,n| raise 'Index out of bounds' if n >= xs.size; xs[n] },
+    'first':  lambda { |xs| nil if xs == nil || xs.size < 1; xs[0] },
+    'rest':   lambda { |xs| xs.drop(1) },
 
     'prn':         lambda { |*x| puts x.map {|e| show(e)}.join(' ') },
     'str':         lambda { |*x| x.map {|y| show(y,false)}.join("")},
