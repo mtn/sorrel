@@ -46,7 +46,7 @@ def create_repl_env(withCore=true)
     repl_env.set(:eval, lambda { |x| EVAL(x,repl_env) })
 
     if withCore
-        File.readlines("#{File.expand_path(File.dirname(__FILE__))}/lib/core.mal").each { |line|
+        File.readlines("#{File.expand_path(File.dirname(__FILE__))}/lib/core.srl").each { |line|
             if not line.chomp == ""
                 EVAL(READ(line.chomp),repl_env)
             end

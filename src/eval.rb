@@ -91,6 +91,12 @@ def EVAL(ast,env)
             return ast[1]
         when :quasiquote then
             ast = quasiquote(ast[1])
+        when :'try*' then
+            begin
+                return EVAL(ast[1],env)
+            rescue => e
+                return EVAL(ast[2][2],Env.new(env,[ast[2][1]],[e]))
+            end
         else
             el = eval_ast(ast,env)
             f = el[0]
