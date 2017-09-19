@@ -1,7 +1,23 @@
 require_relative 'types'
 
-def is_pair(arg)
-    (arg.is_a? Array) && arg.size > 0
+def is_pair(x)
+    (x.is_a? Array) && x.size > 0
+end
+
+def is_macro_call(ast,env)
+    return (ast.is_a? Array) &&
+           (ast[0].is_a? Symbol) &&
+           (env.find(ast[0])) &&
+           (env.get(ast[0]).is_a? Function) &&
+           (env.get(ast[0]).is_macro)
+end
+
+def macroexpand(ast,env)
+    while is_macro_call(ast,env)
+        f = env.get(ast[0])
+        ast = f.fn[*ast.drop(1)]
+    end
+    ast
 end
 
 def quasiquote(ast)
@@ -20,7 +36,7 @@ def eval_ast(ast,env)
     case ast
     when Symbol then
         unless env.get(ast)
-            throw "Symbol not found"
+            throw "Symbol #{ast.to_s} not found"
         end
         env.get(ast)
     when Array then
@@ -35,6 +51,11 @@ def EVAL(ast,env)
         if not ast.is_a? Array
             return eval_ast(ast,env)
         end
+        puts (show ast)
+        ast = macroexpand(ast,env)
+        if not ast.is_a? Array
+            return eval_ast(ast,env)
+        end
         if ast.empty?
             return ast
         end
@@ -42,6 +63,12 @@ def EVAL(ast,env)
         case ast[0]
         when :def! then
             return env.set(ast[1],EVAL(ast[2],env))
+        when :defmacro! then
+            f = EVAL(ast[2],env)
+            f.is_macro = true
+            return env.set(ast[1],f)
+        when :macroexpand then
+            return macroexpand(ast[1],env)
         when :'let*' then
             inner = Env.new(env)
             ast[1].each_slice(2) do |k,v|
@@ -75,7 +102,7 @@ def EVAL(ast,env)
                 ast = f.ast
                 env = f.gen_env(el.drop(1))
             else
-                return f.call(*el.drop(1))
+                return f[*el.drop(1)]
             end
         end
 
