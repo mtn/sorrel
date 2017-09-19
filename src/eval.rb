@@ -1,7 +1,7 @@
 require_relative 'types'
 
 def is_pair(arg)
-    (arg.is_a? Array) && arg.empty?
+    (arg.is_a? Array) && arg.size > 0
 end
 
 def quasiquote(ast)
@@ -12,7 +12,6 @@ def quasiquote(ast)
     elsif is_pair(ast) and ast[0][0] == :'splice-unquote'
         [:concat,ast[0][1],quasiquote(ast.drop(1))]
     else
-        puts 'in here'
         [:cons,quasiquote(ast[0]),quasiquote(ast.drop(1))]
     end
 end

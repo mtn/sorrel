@@ -72,6 +72,21 @@ def read_form(reader)
         read_list(reader)
     when '[' then
         read_list(reader,'[',']')
+    when '@' then
+        reader.next
+        [:deref,read_form(reader)]
+    when "'" then
+        reader.next
+        [:quote,read_form(reader)]
+    when '`' then
+        reader.next
+        [:quasiquote,read_form(reader)]
+    when '~' then
+        reader.next
+        [:unquote,read_form(reader)]
+    when '~@' then
+        reader.next
+        [:'splice-unquote',read_form(reader)]
     else
         read_atom(reader)
     end
