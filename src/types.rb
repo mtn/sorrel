@@ -3,12 +3,14 @@ class Function
     attr_accessor :ast
     attr_accessor :env
     attr_accessor :params
+    attr_accessor :is_macro
     attr_accessor :fn
 
     def initialize(ast=nil,params=nil,env=nil,fn)
         @ast = ast
         @params = params
         @env = env
+        @is_macro = false
         @fn = fn
     end
 

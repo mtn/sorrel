@@ -81,12 +81,12 @@ def read_form(reader)
     when '`' then
         reader.next
         [:quasiquote,read_form(reader)]
-    when '~' then
-        reader.next
-        [:unquote,read_form(reader)]
     when '~@' then
         reader.next
         [:'splice-unquote',read_form(reader)]
+    when '~' then
+        reader.next
+        [:unquote,read_form(reader)]
     else
         read_atom(reader)
     end
