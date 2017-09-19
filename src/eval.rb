@@ -35,9 +35,6 @@ end
 def eval_ast(ast,env)
     case ast
     when Symbol then
-        unless env.get(ast)
-            throw "Symbol #{ast.to_s} not found"
-        end
         env.get(ast)
     when Array then
         ast.map { |x| EVAL(x,env) }
@@ -51,7 +48,6 @@ def EVAL(ast,env)
         if not ast.is_a? Array
             return eval_ast(ast,env)
         end
-        puts (show ast)
         ast = macroexpand(ast,env)
         if not ast.is_a? Array
             return eval_ast(ast,env)
