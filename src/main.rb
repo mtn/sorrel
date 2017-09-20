@@ -15,7 +15,7 @@ while buf = Readline.readline('>> ', true)
     begin
         rep(buf,repl_env)
     rescue => e
-        puts 'Error: ' + e.message
+        puts "Error: '#{e.message}'"
     end
 end
 

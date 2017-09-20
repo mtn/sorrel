@@ -11,6 +11,11 @@ $ns = {
     '*': lambda { |a,b| a*b      },
     '/': lambda { |a,b| int(a/b) },
 
+    'nil?':   lambda { |x| x == nil },
+    'true?':  lambda { |x| x == true },
+    'false?':  lambda { |x| x == false },
+    'symbol?':  lambda { |x| x.is_a? Symbol },
+
     'list':   lambda { |*x| x },
     'list?':  lambda { |*x| x[0].is_a? Array },
     'empty?': lambda { |x| x.empty? },
@@ -31,5 +36,9 @@ $ns = {
     'swap!':  lambda { |*x| x[0].val = x[1].fn.call(*[x[0].val].concat(x.drop(2))) },
     'deref':  lambda { |x| x.val },
     'reset!': lambda { |x,v| x.val=v },
+
+    'throw': lambda { |x| raise x },
+    'apply': lambda { |*x| x[0].call(*x[1..-2].concat(x[-1])) },
+    'map':   lambda { |x,y| y.map { |a| x.call(a) } },
 }
 
