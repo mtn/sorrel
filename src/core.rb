@@ -11,10 +11,14 @@ $ns = {
     '*': lambda { |a,b| a*b      },
     '/': lambda { |a,b| int(a/b) },
 
-    'nil?':   lambda { |x| x == nil },
-    'true?':  lambda { |x| x == true },
-    'false?':  lambda { |x| x == false },
-    'symbol?':  lambda { |x| x.is_a? Symbol },
+    'sequential?': lambda { |x| x.is_a? Array },
+    'keyword?':    lambda { |x| x.is_a? String && x[0] == '\u029e' },
+    'keyword':     lambda { |x| '\u029e'+x },
+    'false?':      lambda { |x| x == false },
+    'symbol?':     lambda { |x| x.is_a? Symbol },
+    'symbol':      lambda { |x| x.to_sym },
+    'true?':       lambda { |x| x == true },
+    'nil?':        lambda { |x| x == nil },
 
     'list':   lambda { |*x| x },
     'list?':  lambda { |*x| x[0].is_a? Array },
