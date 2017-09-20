@@ -1,6 +1,5 @@
 
 def space_delimit(arr,readable=true)
-    puts 'this was invoked'
     arr.map{ |x| show(x,readable) }.join(' ')
 end
 

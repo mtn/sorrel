@@ -48,6 +48,7 @@ def create_repl_env(withCore=true)
         repl_env.set(key,val)
     }
 
+    repl_env.set(:'ARGV*', ARGV)
     repl_env.set(:eval, lambda { |x| EVAL(x,repl_env) })
 
     if withCore
