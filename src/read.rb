@@ -54,6 +54,8 @@ def read_atom(reader)
     case (token = reader.next)
     when /^-?[0-9]+$/ then
         token.to_i
+    when /^:/ then
+        "\u029e" + token[1..-1]
     when 'nil' then
         nil
     when 'true' then
@@ -73,6 +75,8 @@ def read_form(reader)
         read_list(reader)
     when '[' then
         read_list(reader,'[',']')
+    when "{" then
+        Hash[read_list(reader,"{", "}").each_slice(2).to_a]
     when '@' then
         reader.next
         [:deref,read_form(reader)]
