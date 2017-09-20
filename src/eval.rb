@@ -38,6 +38,10 @@ def eval_ast(ast,env)
         env.get(ast)
     when Array then
         ast.map { |x| EVAL(x,env) }
+    when Hash then
+        hm = {}
+        ast.each { |k,v| hm[EVAL(k,env)] = EVAL(v,env) }
+        hm
     else
         ast
     end

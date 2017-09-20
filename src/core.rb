@@ -20,6 +20,15 @@ $ns = {
     'true?':       lambda { |x| x == true },
     'nil?':        lambda { |x| x == nil },
 
+    'contains?': lambda { |h,k| h.key? k },
+    'hash-map':  lambda { |*x| hm = {}; x.each_slice(2) { |k,v| hm[k] = v }; hm },
+    'values':    lambda { |h| h.values },
+    'dissoc':    lambda { |h,*x| hm = h.clone; x.each { |k| hm.delete(k) }; hm },
+    'assoc':     lambda { |h,*x| hm = h.clone; x.each_slice(2) { |k,v| hm[k] = v }; hm },
+    'keys':      lambda { |h| h.keys },
+    'map?':      lambda { |x| x.is_a? Hash },
+    'get':       lambda { |h,k| h[k] },
+
     'list':   lambda { |*x| x },
     'list?':  lambda { |*x| x[0].is_a? Array },
     'empty?': lambda { |x| x.empty? },
