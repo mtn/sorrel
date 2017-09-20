@@ -7,7 +7,12 @@ class Env
         @data = {}
         @outer = outer
         terms.each_with_index { |b,i|
-            @data[b] = exprs[i]
+            if b == :&
+                @data[terms[i+1]] = exprs.drop(i)
+                break
+            else
+                @data[b] = exprs[i]
+            end
         }
     end
 

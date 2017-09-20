@@ -23,7 +23,7 @@ $ns = {
     'list':   lambda { |*x| x },
     'list?':  lambda { |*x| x[0].is_a? Array },
     'empty?': lambda { |x| x.empty? },
-    'count':  lambda { |x| x.count },
+    'count':  lambda { |x| return 0 if x == nil; x.count },
     'cons':   lambda { |x,xs| xs.clone.insert(0,x) },
     'concat': lambda { |*xs| xs && xs.reduce(:+) || [] },
     'nth':    lambda { |xs,n| raise 'Index out of bounds' if n >= xs.size; xs[n] },
