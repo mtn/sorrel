@@ -27,3 +27,6 @@ class Atom
     end
 end
 
+class EmptyInputError < RuntimeError
+end
+

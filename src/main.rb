@@ -19,6 +19,7 @@ end
 while buf = Readline.readline('>> ', true)
     begin
         rep(buf,repl_env)
+    rescue EmptyInputError
     rescue => e
         puts "Error: '#{e.message}'"
     end

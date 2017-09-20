@@ -2,6 +2,7 @@
 class Reader
 
     def initialize(tokens)
+        raise EmptyInputError if tokens == []
         @tokens = tokens
         @ind = 0
     end
