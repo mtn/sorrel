@@ -33,6 +33,8 @@ $ns = {
     'prn':         lambda { |*x| puts x.map {|e| show(e)}.join(' ') },
     'str':         lambda { |*x| x.map {|y| show(y,false)}.join("")},
     'slurp':       lambda { |x| File.read(x.to_s) },
+    'pr-str':      lambda { |*x| x.map { |y| show(y,true) }.join(' ') },
+    'println':     lambda { |*x| puts(x.map { |y| show(y,false) }.join(' ')) },
     'read-string': lambda { |x| read_str x.to_s },
 
     'atom':   lambda { |x| Atom.new(x) },

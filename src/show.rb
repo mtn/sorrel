@@ -1,29 +1,15 @@
 
-def space_delimit(arr)
-    spaced = ''
-    num_terms = arr.length
-    arr.each_with_index { |x,ind|
-        if ind != num_terms - 1
-            spaced += show(x) + ' '
-        else
-            spaced += show(x)
-        end
-    }
-    spaced
+def space_delimit(arr,readable=true)
+    puts 'this was invoked'
+    arr.map{ |x| show(x,readable) }.join(' ')
 end
 
 def show(inp,readable=true)
     case inp
-    when Integer
-        then inp.to_s
-    when TrueClass
-        then inp.to_s
-    when FalseClass
-        then inp.to_s
     when NilClass
         then 'nil'
     when Array
-        then '(' + space_delimit(inp) + ')'
+        then '(' + space_delimit(inp,readable) + ')'
     when String
         if readable
             return inp.inspect
@@ -31,7 +17,7 @@ def show(inp,readable=true)
             return inp
         end
     when Atom
-        then "(atom " + show(inp.val, true) + ")"
+        then "(atom " + show(inp.val,true) + ")"
     when Function
         then '#<function>'
     else
