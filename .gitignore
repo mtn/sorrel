@@ -52,3 +52,5 @@ build-iPhoneSimulator/
 *.sw*
 .DS_Store
 todo.txt
+notes.txt
+demo.txt
