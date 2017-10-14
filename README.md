@@ -6,7 +6,7 @@ Everything is immutable, and integer, boolean, list, and hash-maps are built in.
 
 ## Usage
 
-To run the interpreter:
+To run the repl:
 
     ./sorrel
 
